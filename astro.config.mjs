@@ -9,7 +9,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://manasiarchive.netlify.app/',
+  site: 'https://portfolio-manasi.netlify.app/',
   integrations: [sitemap()],
 
   vite: {

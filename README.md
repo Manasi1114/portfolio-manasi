@@ -1,4 +1,4 @@
-# Your first Astro website
+# Portfolio Manasi
 
 A minimal website starter built with Astro, designed for people comfortable with basic HTML and CSS who want to learn modern web development without the complexity.
 
