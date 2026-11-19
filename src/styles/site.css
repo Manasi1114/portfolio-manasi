@@ -16,7 +16,8 @@
   --mono: "DM Mono", ui-monospace, monospace;
   --hand: "Edu QLD Beginner", "Segoe Print", cursive;
   --gap: 16px;
-  --edge: 32px;
+  /* Narrow side margins: the site fills the laptop screen edge to edge. */
+  --edge: clamp(12px, 1.25vw, 20px);
 }
 
 *,
@@ -77,8 +78,8 @@ ol {
 
 /* ---------- page frame ---------- */
 .site {
-  max-width: 1440px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   padding: var(--edge);
   display: flex;
   flex-direction: column;
@@ -395,7 +396,7 @@ a.tag:hover { box-shadow: 2px 2px 0 var(--navy); }
 
 /* ---------- mobile ---------- */
 @media (max-width: 860px) {
-  :root { --edge: 16px; --gap: 12px; }
+  :root { --edge: 12px; --gap: 12px; }
   .nav { min-height: 0; padding: 14px 16px; }
   .nav-name { font-size: 17px; }
   .nav-right { display: none; }
