@@ -22,7 +22,7 @@ const t = frontmatter.title;
     <div class="col">
       {frontmatter.image?.url && (
         <figure class="media" style="aspect-ratio: 904 / 460;">
-          <img src={frontmatter.image.url} alt="" />
+          <img src={frontmatter.image.url} alt="" style={`object-position: ${frontmatter.focus ?? "center"}`} />
           {frontmatter.caption && <figcaption class="caption-strip">{frontmatter.caption}</figcaption>}
         </figure>
       )}

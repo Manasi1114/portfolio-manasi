@@ -27,7 +27,7 @@ const pad = (n) => String(n).padStart(2, "0");
 
   <article class="row row-1-1 tile t-white flush" style="display: grid;">
     <figure class="media" style="border: 0; min-height: 320px;">
-      {featured.frontmatter.image?.url && <img src={featured.frontmatter.image.url} alt="" />}
+      {featured.frontmatter.image?.url && <img src={featured.frontmatter.image.url} alt="" style={`object-position: ${featured.frontmatter.focus ?? "center"}`} />}
       {featured.frontmatter.caption && <figcaption class="caption-strip">{featured.frontmatter.caption}</figcaption>}
     </figure>
     <div class="tile" style="border: 0;">
@@ -42,7 +42,7 @@ const pad = (n) => String(n).padStart(2, "0");
     {rest.map((p) => (
       <article class="tile t-white flush">
         <figure class="media" style="aspect-ratio: 448 / 240; min-height: 0;">
-          {p.frontmatter.image?.url && <img src={p.frontmatter.image.url} alt="" loading="lazy" />}
+          {p.frontmatter.image?.url && <img src={p.frontmatter.image.url} alt="" loading="lazy" style={`object-position: ${p.frontmatter.focus ?? "center"}`} />}
           {p.frontmatter.caption && <figcaption class="caption-strip">{p.frontmatter.caption}</figcaption>}
         </figure>
         <div class="tile" style="border: 0; flex: 1; gap: 10px;">
