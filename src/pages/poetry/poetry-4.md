@@ -3,6 +3,7 @@ title: "The Faerie Queene"
 image: "/images/fairy.jpg"
 date: "2025-08-13"
 poet: "Edmund Spenser"
+order: 4
 description: "A beautiful poem about Nuremberg."
 layout: ../../layouts/PoetryLayout.astro
 ---

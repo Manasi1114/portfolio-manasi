@@ -2,6 +2,7 @@
 title: "Nuremberg"
 image: "/images/fort.jpg"
 poet: "Kenneth Slessor"
+order: 2
 layout: ../../layouts/PoetryLayout.astro
 ---
 

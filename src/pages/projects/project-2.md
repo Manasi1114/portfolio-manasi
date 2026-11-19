@@ -1,11 +1,20 @@
 ---
 layout: ../../layouts/ProjectLayout.astro
-title: Janatotsav
+title: Janatotsav, Seondha
 sub-heading:
 author: Manasi
-description: A social affair
+description: "A social affair in Seondha, Madhya Pradesh: the river Sindh, the Sankua waterfall and the legends around it."
+excerpt: "Seondha, forty kilometres north of Datia on the river Sindh, and the legend of the Sankua waterfall."
+kind: Heritage
+dateLabel: "13 Aug 2025"
+order: 2
+glance:
+  - ["Place", "Seondha, Datia, Madhya Pradesh"]
+  - ["River", "Sindh"]
+  - ["Focus", "Sankua waterfall"]
+  - ["Method", "Field visit"]
 image:
-  url: "/images/mela.png"
+  url: "/web/mela.jpg"
 pubDate: "13th Aug'25"
 ---
 A prominent and historical part of Bundelkhand, Seondha is located forty kilometers north of district Datia in the state of Madhya Pradesh. The shores of the river Sindh occupy the small town’s perimeter and lend it natural wonders not easily found elsewhere in the region. The powerful flow of the river has divided most of the fertile land in 400 by 400 ft. deep moors that make it unsuitable for agricultural purposes. A large fissure has also divided Seondha in two parts. However, it were these dangerous moors and contested terrain that protected Seondha from enemies up until the eighteenth century.

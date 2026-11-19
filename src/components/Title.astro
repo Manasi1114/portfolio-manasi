@@ -1,0 +1,11 @@
+---
+// Page title in the Homepage Final style: first word red, a closing full stop
+// in lime on dark tiles (red on light ones).
+const { text, size = "d-lg", dark = true, as: Tag = "h1" } = Astro.props;
+const end = /[.!?]$/.test(text) ? text.slice(-1) : "";
+const body = end ? text.slice(0, -1) : text;
+const space = body.indexOf(" ");
+const first = space > 0 ? body.slice(0, space) : body;
+const rest = space > 0 ? body.slice(space) : "";
+---
+<Tag class={`display ${size}`}><span class="red">{first}</span>{rest}{end && <span class={dark ? "lime" : "red"}>{end}</span>}</Tag>

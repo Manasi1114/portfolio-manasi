@@ -3,8 +3,18 @@ layout: ../../layouts/ProjectLayout.astro
 title: Ponk Nagari of Surat
 sub-heading:
 author: Manasi
+description: "An ethnographic study of a seasonal market in Surat, Gujarat: its social relationships, spatial dynamics and aesthetics."
+excerpt: "The seasonal delicacy of Ponk — green, immature jowar — and the market and social affair that grows around it in Surat every winter."
+kind: Ethnography
+dateLabel: "13 Aug 2025"
+order: 1
+glance:
+  - ["Place", "Adajan, Surat, Gujarat"]
+  - ["Season", "November – December"]
+  - ["Focus", "Ponk (green jowar)"]
+  - ["Method", "Ethnography"]
 image:
-  url: "/images/ponk.jpg"
+  url: "/web/ponk.jpg"
 pubDate: "13th Aug'25"
 ---
 
@@ -14,7 +24,7 @@ The objective of this report was to study such an Indian Market, moving beyond i
 The primary object of focus at the market is the seasonal delicacy of Ponk. Also called Sorghum and Hurda, Ponk is green immature Jowar. The Jowar we usually see is harvested a little later but Ponk is harvested when the seeds are still young in the months of November- December. In Gujarat, the Ponk season is more than a culinary experience, it is a social affair.
 
 
-The Market
+## The market
 
 The market studied is the appropriately named Ponk Nagari market located in the Adajan gam, a north-western neighbourhood of Surat, across the river Tapi. Ensconced between a Shani temple, a tennis court, the river and a landfill, this area perfectly captures the semi-urban muddy aesthetic that one has come to associate with ever-developing Indian cities. The entry-point is a large billboard like gate with a driveway under the Sardar bridge and is fenced on the front side with barbed metal wires. There is a lot of parking space under the bridge where people park their bigger vehicles and two-wheelers are parked inside the market.
 

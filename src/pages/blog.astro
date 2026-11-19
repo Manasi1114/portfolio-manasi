@@ -1,156 +1,57 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
-import ImageCard from "../components/ImageCard.astro";
+// Blog (Figma: Page · Blog). Posts live in src/pages/posts and src/pages/blog.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Title from "../components/Title.astro";
 
-const allPosts = Object.values(
-  import.meta.glob("./posts/*.md", { eager: true }),
-);
+const posts = Object.values({
+  ...import.meta.glob("./posts/*.md", { eager: true }),
+  ...import.meta.glob("./blog/*.md", { eager: true }),
+}).sort((a, b) => (a.frontmatter.order ?? 9) - (b.frontmatter.order ?? 9));
+const [featured, ...rest] = posts;
+const pad = (n) => String(n).padStart(2, "0");
 ---
 
-<MainLayout title="Blog" class="layout">
-  <h1>I write.</h1>
-  <div class="blog-grid">
-    {
-      allPosts.map((post: any) => (
-        <article class="blog-card">
-          <ImageCard
-            link={post.frontmatter.image.url}
-            caption={post.frontmatter.image.alt}
-            height="200"
-          />
-          <div class="blog-content">
-            <h2>
-              <a href={post.url}>{post.frontmatter.title}</a>
-            </h2>
-            <small>{post.frontmatter.date}</small>
-            <a class="read-more" href={post.url}>
-              Read more →
-            </a>
-          </div>
-        </article>
-      ))
-    }
+<SiteLayout title="Blog" section="writing" description="Notes from class, books, trips and the things I keep thinking about.">
+  <div class="row row-2-1">
+    <section class="tile t-navy pad-lg">
+      <p class="label">Off the clock · Blog</p>
+      <Title text="I write." />
+      <p class="lede">Notes from class, books, trips and the things I keep thinking about.</p>
+    </section>
+    <section class="tile t-steel">
+      <p class="label">Posts</p>
+      <p class="num" style="font-size: 64px;">{pad(posts.length)}</p>
+      <p class="muted">Newest first</p>
+    </section>
   </div>
-</MainLayout>
 
-<style>
-  body {
-    margin: 0;
-  }
-  h1 {
-    font-size: 100px;
-    font-family: "lapture", serif;
-    transform: rotate(270deg);
-    transform-origin: left top;
-    position: absolute;
-    left: calc(50% - 560px); /* sits in the margin left of the cards */
-    top: 450px;
-    color: rgb(79, 124, 137);
-  }
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
+  <article class="row row-1-1 tile t-white flush" style="display: grid;">
+    <figure class="media" style="border: 0; min-height: 320px;">
+      {featured.frontmatter.image?.url && <img src={featured.frontmatter.image.url} alt="" />}
+      {featured.frontmatter.caption && <figcaption class="caption-strip">{featured.frontmatter.caption}</figcaption>}
+    </figure>
+    <div class="tile" style="border: 0;">
+      <div class="top"><p class="label muted">Featured · {featured.frontmatter.category}</p><span class="tag tag-lime">New</span></div>
+      <h2 class="display d-md">{featured.frontmatter.title}</h2>
+      <p style="font-size: 18px;">{featured.frontmatter.description}</p>
+      <a class="btn push" href={featured.url}>Read more →</a>
+    </div>
+  </article>
 
-  .blog-card {
-    padding-top: 10px;
-    background: #fff;
-    border-radius: 14px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    height: 100%;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-    transition:
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-
-  .blog-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-  }
-
-  .blog-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-  }
-
-  /* Typography */
-  .blog-content h2 {
-    margin: 0.6rem 0;
-    font-family: "Palatino Linotype", serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #2b2b2b;
-    letter-spacing: 0.5px;
-  }
-
-  .blog-content h2 a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s ease;
-  }
-
-  .blog-content h2 a:hover {
-    color: #54b077;
-  }
-
-  .blog-content small {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 1rem;
-    letter-spacing: 0.4px;
-  }
-
-  .read-more {
-    font-family: "Josefine Sans", sans-serif;
-    display: inline-block;
-    padding: 0.5rem 1.1rem;
-    background: rgb(163, 19, 72);
-    color: #fff;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    letter-spacing: 0.5px;
-    transition:
-      background 0.3s ease,
-      transform 0.2s ease;
-  }
-
-  .read-more:hover {
-    transform: translateY(-2px);
-  }
-
-  /* Smaller screens: the sideways heading turns upright and sits above the cards */
-  @media (max-width: 1279px) {
-    h1 {
-      position: static;
-      transform: none;
-      font-size: clamp(48px, 11vw, 80px);
-      line-height: 1;
-      margin: 0 0 1.5rem;
-      padding: 0 1rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .blog-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1rem;
-    }
-  }
-</style>
+  <div class="row row-3">
+    {rest.map((p) => (
+      <article class="tile t-white flush">
+        <figure class="media" style="aspect-ratio: 448 / 240; min-height: 0;">
+          {p.frontmatter.image?.url && <img src={p.frontmatter.image.url} alt="" loading="lazy" />}
+          {p.frontmatter.caption && <figcaption class="caption-strip">{p.frontmatter.caption}</figcaption>}
+        </figure>
+        <div class="tile" style="border: 0; flex: 1; gap: 10px;">
+          <p class="label muted">{p.frontmatter.category}</p>
+          <h3 class="display d-xs" style="font-size: 28px;">{p.frontmatter.title}</h3>
+          <p class="small">{p.frontmatter.description}</p>
+          <a class="link push" href={p.url}>Read more →</a>
+        </div>
+      </article>
+    ))}
+  </div>
+</SiteLayout>

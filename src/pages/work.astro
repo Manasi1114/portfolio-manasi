@@ -1,0 +1,56 @@
+---
+// Work (Figma: Page · Work). The three case studies are marked "coming soon"
+// until their content is written; field reports come from src/pages/projects/*.md.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Title from "../components/Title.astro";
+import { PROJECTS } from "../data/site.js";
+
+const [p1, p2, p3] = PROJECTS;
+const reports = Object.values(import.meta.glob("./projects/*.md", { eager: true }))
+  .sort((a, b) => (a.frontmatter.order ?? 9) - (b.frontmatter.order ?? 9));
+---
+
+<SiteLayout title="Work" section="work" description="Selected work and field reports by Manasi Shrivastava.">
+  <section class="tile t-navy pad-lg">
+    <p class="label">Work</p>
+    <Title text="Selected work." />
+    <p class="lede">Three case studies, followed by field reports from markets and towns I have documented.</p>
+  </section>
+
+  <div class="row row-2-1">
+    <article class="media" style="min-height: 480px;">
+      <span class="tag tag-lime" style="position: absolute; top: 20px; left: 20px;">{p1.n} / 03</span>
+      <div class="tile t-white" style="position: absolute; left: 20px; bottom: 20px; width: min(480px, calc(100% - 40px)); gap: 8px;">
+        <p class="label muted">{p1.meta}</p>
+        <h2 class="display d-sm">{p1.title}</h2>
+        <p class="link">Case study coming soon</p>
+      </div>
+    </article>
+    <div class="col">
+      {[p2, p3].map((p, i) => (
+        <article class="tile t-ice fill">
+          <div class="top"><p class="label">{p.meta}</p><span class={i === 0 ? "tag tag-lime" : "tag"}>{p.n}</span></div>
+          <h2 class="display d-sm">{p.title}</h2>
+          <p class="link push">Case study coming soon</p>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <h2 class="label section-head">Field reports</h2>
+  <div class="row row-1-1">
+    {reports.map((r) => (
+      <article class="tile t-white flush">
+        <figure class="media" style="aspect-ratio: 680 / 300; min-height: 0;">
+          {r.frontmatter.image?.url && <img src={r.frontmatter.image.url} alt="" loading="lazy" />}
+        </figure>
+        <div class="tile" style="border: 0; flex: 1;">
+          <p class="label muted">{r.frontmatter.dateLabel} · {r.frontmatter.kind}</p>
+          <h3 class="display d-sm">{r.frontmatter.title}</h3>
+          <p style="font-size: 17px;">{r.frontmatter.excerpt}</p>
+          <a class="link push" href={r.url}>Read report →</a>
+        </div>
+      </article>
+    ))}
+  </div>
+</SiteLayout>

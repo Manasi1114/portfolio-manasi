@@ -2,7 +2,9 @@
 title: "Study of People"
 image: "/images/people.jpg"
 date: "2025-08-13"
-poet: "Manasi Shrivastva"
+poet: "Manasi Shrivastava"
+mine: true
+order: 1
 description: "A beautiful poem about Nuremberg."
 layout: ../../layouts/PoetryLayout.astro
 ---

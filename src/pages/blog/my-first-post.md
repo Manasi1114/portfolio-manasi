@@ -1,9 +1,11 @@
 ---
-# Blog posts use BlogLayout instead of MainLayout - notice the difference!
 layout: ../../layouts/BlogLayout.astro
 title: "A Midsummer Night's Dream"
 date: "04-07-2025"
-excerpt: "A Shakespearean comedy of love with errors"
+description: "“My dear Theseus, what these lovers are describing is strange.” — Hippolyta"
+category: "Reading"
+caption: "A Midsummer Night’s Dream, William Shakespeare"
+order: 4
 ---
 
 # Midsummer Night's Dream

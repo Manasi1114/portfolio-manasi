@@ -11,6 +11,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://portfolio-manasi.netlify.app/',
   integrations: [sitemap()],
+  // The old projects list now lives at /work.
+  redirects: {
+    '/projects': '/work',
+  },
 
   vite: {
     plugins: [tailwindcss()]

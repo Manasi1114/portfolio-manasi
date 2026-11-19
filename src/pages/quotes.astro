@@ -1,163 +1,38 @@
 ---
-import Button from "../components/Button.astro";
-import DirectoryLayout from "../layouts/DirectoryLayout.astro";
+// Quotes (Figma: Page · Quotes).
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Title from "../components/Title.astro";
 
-const allPosts = Object.values(
-  import.meta.glob("../pages/quotes/*.md", { eager: true })
-);
+const quotes = Object.values(import.meta.glob("./quotes/*.md", { eager: true }))
+  .sort((a, b) => (a.frontmatter.order ?? 9) - (b.frontmatter.order ?? 9));
 ---
 
-<DirectoryLayout title="Quotes">
-  <div class="quotes-quote">
-    <p>
-      "I have the world's largest collection of seashells. I keep it on all the
-      beaches of the world... perhaps you've seen it."
-      <br /><br />― Steven Wright
+<SiteLayout title="Quotes" section="writing" description="Lines worth keeping, and why they stay with me.">
+  <section class="tile t-navy pad-lg">
+    <p class="label">Off the clock · Quotes</p>
+    <Title text="Lines worth keeping." />
+    <p class="hand" style="font-size: 22px; line-height: 1.45; max-width: 60ch;">
+      “I have the world’s largest collection of seashells. I keep it on all the beaches of the world… perhaps you’ve seen it.” — Steven Wright
     </p>
-  </div>
+  </section>
 
-  <div class="quotes-index">
-    {
-      allPosts.map((post: any, index: number) => (
-        <a href={post.url}>
-          <span class="quote-number">
-            {String(index + 1).padStart(2, "0")}.
-          </span>
-          <span class="quote-title">{post.frontmatter.title}</span>
-          <span class="quote-meta">{post.frontmatter.author}</span>
-        </a>
-      ))
-    }
-  </div>
-    <img class="flower" src="/svg/flower2.svg" />
-</DirectoryLayout>
-<ul class="link"><Button text="Back" link="/blog" /></ul>
-
-<style>
-  .quotes-index {
-    position: relative;
-    top: -120px;
-    width: max-content;
-    max-width: 100%;
-    display: grid;
-    grid-template-columns: minmax(0, 500px);
-    gap: 0.5rem;
-    font-family: "Georgia", serif;
-    margin-left: 830px;
-    padding: 1rem 1rem;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  }
-
-  .quotes-index a {
-    display: grid;
-    grid-template-columns: 3rem 1fr auto;
-    align-items: baseline;
-    padding: 0.3rem 0;
-    text-decoration: none;
-    border-bottom: 1px dotted #aaa;
-    color: #333;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-  }
-
-  .quotes-index a:hover {
-    color: #cba8a8;
-    border-bottom: 1px solid #000;
-    background: #f9f9f9;
-  }
-
-  .quote-number {
-    color: #888;
-    font-size: 0.9rem;
-  }
-
-  .quote-title {
-    font-weight: 500;
-  }
-
-  .quote-meta {
-    font-size: 0.85rem;
-    color: #666;
-    font-style: italic;
-  }
-
-  .quotes-quote {
-    position: fixed;
-    top: 350px;
-    left: 240px;
-    transform: translateY(-50%);
-    font-style: italic;
-    font-family: "Times New Roman", serif;
-    font-size: 20px;
-    padding: 2rem;
-    max-width: 200px;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    line-height: 25px;
-  }
-
-  .quotes-index {
-    background: #fff;
-  }
-
-  /* Back button: a small floating pill so it never sits on top of text unreadably */
-  .link {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    margin: 0;
-    padding: 6px 10px;
-    list-style: none;
-    font-size: 1.1rem;
-    background: rgba(255, 255, 255, 0.92);
-    border-radius: 999px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    z-index: 1000;
-  }
-
-  /* Laptops and smaller: quote on top, list centred below it */
-  @media (max-width: 1360px) {
-    .quotes-index {
-      top: 0;
-      width: min(100% - 2rem, 560px);
-      grid-template-columns: 1fr;
-      margin: 2rem auto 6rem;
-    }
-    .quotes-quote {
-      position: static;
-      transform: none;
-      max-width: 560px;
-      margin: 2rem auto 0;
-      padding: 1rem;
-      text-align: center;
-    }
-    .flower {
-      width: 300px !important;
-      opacity: 0.5 !important;
-      z-index: -1 !important; /* stays behind the list */
-    }
-  }
-
-  @media (max-width: 800px) {
-    .quotes-index a {
-      grid-template-columns: 2rem 1fr;
-    }
-    .quote-meta {
-      grid-column: 2;
-    }
-    .flower {
-      width: 200px !important;
-    }
-  }
-  .flower {
-  position: fixed;
-  bottom: 0;
-  right: 20px;
-  width: 460px;   height: auto;
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 500;
-}
-</style>
+  {quotes.map((q, i) => {
+    const f = q.frontmatter;
+    return (
+      <div class="row row-2-1">
+        <blockquote class={`tile pad-lg ${i % 2 ? "t-ice" : "t-white"}`} style="gap: 16px;">
+          <div class="top">
+            <a class="label muted" href={q.url} style="text-decoration: none;">{String(i + 1).padStart(2, "0")} · {f.title}</a>
+            <span class={i === 0 ? "tag tag-lime" : "tag"}>{f.author.split(" ").pop()}</span>
+          </div>
+          <p class="hand" style="font-size: clamp(22px, 2.2vw, 30px); line-height: 1.3;">“{f.quote}”</p>
+          <p class="label muted">— {f.author}{f.bibliography ? `, ${f.bibliography}` : ""}</p>
+        </blockquote>
+        <section class={`tile ${i === 0 ? "t-navy" : "t-steel"}`}>
+          <p class="label">Why it stays with me</p>
+          <p style="font-size: 18px;">{f.thoughts}</p>
+        </section>
+      </div>
+    );
+  })}
+</SiteLayout>

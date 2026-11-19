@@ -1,34 +1,37 @@
 ---
-// Design notes: a small index for the design pages, so the main navigation only needs one entry.
-import MainLayout from "../../layouts/MainLayout.astro";
-const pages = [
-  { href: "/design/styles", name: "Design Styles", note: "Fifty design styles with specimens, real references and prompts I can reuse." },
-  { href: "/design-source-catalogue", name: "Source Catalogue", note: "Where I look for references and usable images, filterable by project, need and rights." },
-];
+// Design Notes (Figma: Page · Design Notes). Links to Design Styles and the Source Catalogue,
+// which keep their own designs.
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import Title from "../../components/Title.astro";
 ---
 
-<MainLayout title="Design Notes · Portfolio Manasi" description="Manasi's design notes: a field guide to design styles and a catalogue of design sources.">
-  <div class="dn">
-    <h1>Design notes</h1>
-    <p class="dn-intro">Things I keep while learning to look more closely.</p>
-    <ul>
-      {pages.map((p) => (
-        <li>
-          <a href={p.href}>{p.name}</a>
-          <p>{p.note}</p>
-        </li>
-      ))}
-    </ul>
-  </div>
-</MainLayout>
+<SiteLayout title="Design Notes" section="notes" description="Manasi's design notes: a field guide to design styles and a catalogue of design sources.">
+  <section class="tile t-navy pad-lg">
+    <p class="label">Collections · Design Notes</p>
+    <Title text="Design notes." />
+    <p class="lede">Things I keep while learning to look more closely.</p>
+  </section>
 
-<style>
-  .dn { display: grid; gap: 20px; color: #05162e; }
-  .dn h1 { font-family: "Gloock", Georgia, serif; font-weight: 400; font-size: clamp(2.4rem, 6vw, 4rem); margin: 0; border: 0; padding: 0; }
-  .dn-intro { margin: 0; font-family: "Courier Prime", "Courier New", monospace; }
-  .dn ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  .dn li { border: 1.5px solid #05162e; border-radius: 10px; padding: 16px 18px; background: rgba(255,255,255,.35); }
-  .dn a { font-family: "Gloock", Georgia, serif; font-size: 1.5rem; color: #05162e; text-decoration: none; }
-  .dn a:hover { color: #89023e; }
-  .dn li p { margin: 6px 0 0; font-family: "Courier Prime", "Courier New", monospace; font-size: 15px; max-width: 60ch; }
-</style>
+  <div class="row row-1-1">
+    <section class="tile t-steel pad-lg">
+      <div class="top"><p class="label">My collection · 01</p><span class="tag">01</span></div>
+      <h2 class="display d-md">Design Styles</h2>
+      <p style="font-size: 18px;">Fifty design styles with specimens, real references and prompts I can reuse.</p>
+      <p class="num lime" style="font-size: 64px;">50</p>
+      <a class="btn push" href="/design/styles">Explore →</a>
+    </section>
+    <section class="tile t-white pad-lg">
+      <div class="top"><p class="label muted">My collection · 02</p><span class="tag tag-lime">02</span></div>
+      <h2 class="display d-md">Source Catalogue</h2>
+      <p style="font-size: 18px;">Where I look for references and usable images, filterable by project, need and rights.</p>
+      <p class="num" style="font-size: 64px;">27</p>
+      <a class="btn btn-red push" href="/design-source-catalogue">Explore →</a>
+    </section>
+  </div>
+
+  <div class="row row-4">
+    {[["50", "Design styles", "t-white"], ["05", "Style families", "t-white"], ["27", "Sources", "t-white"], ["06", "Source groups", "t-ice"]].map(([v, k, c]) => (
+      <div class={`tile ${c}`}><p class="num">{v}</p><p class="muted">{k}</p></div>
+    ))}
+  </div>
+</SiteLayout>

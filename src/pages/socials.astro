@@ -1,115 +1,35 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+// Socials (Figma: Page · Socials). Only accounts with a real address are listed.
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Title from "../components/Title.astro";
+import { CV_URL, EMAIL, INSTAGRAM } from "../data/site.js";
 ---
 
-<MainLayout title="Connect">
-  <div class="connect-page">
-    <h1>Connect</h1>
+<SiteLayout title="Socials" section="about" description="Find Manasi Shrivastava online, or write to her directly.">
+  <section class="tile t-navy pad-lg">
+    <p class="label">Connect</p>
+    <Title text="Say hello." />
+    <p class="lede">Find me in these places, or write to me directly.</p>
+  </section>
 
-    <div class="connect-links">
-      <a class="instagram" href="https://www.instagram.com/maa_nuh_see/">Instagram</a>
-      <a class="behance" href="https://behance.net/yourusername">Behance</a>
-      <a class="youtube" href="https://youtube.com/yourchannel">YouTube</a>
-      <a class="email" href="mailto:manasishrivastava362@gmail.com">Email</a>
-    </div>
+  <div class="row row-1-1">
+    <section class="tile t-navy">
+      <p class="label">Most active</p>
+      <h2 class="display d-md">Instagram</h2>
+      <p class="muted">{INSTAGRAM.handle}</p>
+      <a class="btn btn-lime push" href={INSTAGRAM.url}>Open Instagram →</a>
+    </section>
+    <section class="tile t-white">
+      <p class="label muted">Email</p>
+      <h2 class="display d-md">Write to me</h2>
+      <p class="muted">{EMAIL}</p>
+      <a class="btn push" href={`mailto:${EMAIL}`}>Send an email →</a>
+    </section>
   </div>
-    <img class="icon" src="/svg/favicon.svg" />
-</MainLayout>
 
-<style>
-  .connect-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  h1 {
-    font-size: 100px;
-    font-family: "lapture", serif;
-    transform: rotate(270deg);
-    transform-origin: left top;
-    position: absolute;
-    left: -3.5rem;
-    top: 450px;
-  }
-
-  .connect-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
-    width: 100%;
-    max-width: 600px;
-    font-family: "Palatino Linotype", "Palatino", "Book Antiqua", serif;
-  }
-
-  .connect-links a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: white;
-    text-decoration: none;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    border-radius: 8px;
-  }
-
-  .connect-links a:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  }
-
-  /* Platform-specific colors */
-  .connect-links a.instagram {
-    background: linear-gradient(45deg, #feda75, #d62976, #962fbf, #4f5bd5);
-  }
-  .connect-links a.behance {
-    background: #1769ff;
-  }
-  .connect-links a.youtube {
-    background: #ff0000;
-  }
-  .connect-links a.email {
-    background: #bc57a13a;
-    color: #333;
-  }
-  /* Tablets and phones: heading upright above the buttons */
-  @media (max-width: 1024px) {
-    .connect-page {
-      min-height: auto;
-      padding: 1rem 0 3rem;
-    }
-    h1 {
-      position: static;
-      transform: none;
-      font-size: clamp(48px, 13vw, 100px);
-      line-height: 1;
-      margin: 0;
-    }
-    .connect-links {
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .icon {
-      width: 90px !important;
-      opacity: 0.5 !important;
-    }
-  }
-
-  .icon {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  width: 150px;
-  height: auto;
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 500;
-}
-</style>
+  <section class="tile t-navy pad-lg">
+    <p class="label">Come, say hello to me!</p>
+    <a class="email" href={`mailto:${EMAIL}`}>{EMAIL} →</a>
+    <a class="btn btn-lime" href={CV_URL}>Download CV</a>
+  </section>
+</SiteLayout>

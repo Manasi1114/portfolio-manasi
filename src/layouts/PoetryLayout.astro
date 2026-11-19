@@ -1,135 +1,40 @@
 ---
-import Button from "../components/Button.astro";
-const { title, poet, date, image, frontmatter } = Astro.props;
+// Poem page (Figma: Page · Poem — Study of People).
+import SiteLayout from "./SiteLayout.astro";
+import Title from "../components/Title.astro";
+
+const { frontmatter } = Astro.props;
+const poems = Object.values(import.meta.glob("../pages/poetry/*.md", { eager: true }))
+  .sort((a, b) => (a.frontmatter.order ?? 9) - (b.frontmatter.order ?? 9));
+const others = poems.filter((p) => p.frontmatter.title !== frontmatter.title);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="Poetry List" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg" />
-    <title>Poetry</title>
-    <link rel="stylesheet" href="/src/styles/global.css" />
-  </head>
-
-  <body>
-    <h1 class="title">{frontmatter.title}</h1>
-    <p class="meta">By {frontmatter.poet}</p>
-    <article class="poem">
-      <slot />
-      <!-- This is where the poem text goes -->
+<SiteLayout title={frontmatter.title} description={`${frontmatter.title}, by ${frontmatter.poet}.`} section="writing">
+  <div class="row row-2-1" style="align-items: start;">
+    <article class="tile t-white pad-lg" style="gap: 22px;">
+      <p class="label muted">Poetry{frontmatter.mine ? " · mine" : ""}</p>
+      <Title text={frontmatter.title + "."} dark={false} size="d-lg" />
+      <p class="muted">by {frontmatter.poet}</p>
+      <div class="hand poem" style="font-size: clamp(19px, 1.8vw, 24px); line-height: 1.6; white-space: pre-line;">
+        <slot />
+      </div>
+      <p class="link muted">— {frontmatter.poet}</p>
     </article>
-    <aside>
-      <img src={image} />
+    <aside class="col">
+      <figure class="media" style="background: var(--paper); aspect-ratio: 456 / 560;">
+        <img src="/web/flower1.png" alt="" />
+      </figure>
+      <nav class="tile t-navy" aria-label="More poems">
+        <p class="label">More poems</p>
+        <ul class="list">
+          {others.map((p) => <li><a href={p.url}><span>{p.frontmatter.title} — {p.frontmatter.poet}</span><span class="lime" aria-hidden="true">→</span></a></li>)}
+        </ul>
+      </nav>
+      <a class="btn" href="/poetry">← All poems</a>
     </aside>
-  </body>
-  <ul class="link"><Button text="Back" link="/poetry" /></ul>
-  <img class="poem-image" src={frontmatter.image} />
-</html>
+  </div>
+</SiteLayout>
 
 <style>
-  body {
-    background-color: #eff2cc;
-    background-repeat: repeat;
-    background-size: auto;
-    color: #22211f; /* parchment cream text */
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    padding: 4rem 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-.poem-image {
-  position: absolute;
-  top: 300px;
-  right: 50px;
-  width: 500px;
-  height: auto;
-  border-radius: 10px;
-  object-fit: cover;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
-
-
-  .title {
-    font-size: 2.5rem;
-    color: #c1a57b; /* warm gold */
-    text-align: center;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Headings (poem titles) */
-  h1,
-  h2,
-  h3 {
-    color: #c1a57b; /* warm gold */
-    font-family: "Garamond", serif;
-    font-weight: bold;
-    margin-top: 0;
-  }
-
-  p {
-    white-space: pre-line;
-    margin: 0 0 1.5rem 0;
-  }
-
-  em {
-    display: block;
-    font-style: italic;
-    color: #a89882;
-    text-align: right;
-    margin-top: 1rem;
-  }
-
-  .poem {
-    white-space: pre-wrap;
-    max-width: 800px;
-    margin: 3rem auto;
-    padding: 0 1rem;
-    font-size: 1.2rem;
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  }
-
-  /* Back button: a small floating pill so it never sits unreadably on top of text */
-  .link {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    margin: 0;
-    padding: 6px 10px;
-    list-style: none;
-    font-size: 1.1rem;
-    background: rgba(255, 255, 255, 0.92);
-    border-radius: 999px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    z-index: 1000;
-  }
-
-  /* The poem's picture sits beside the poem only on wide screens */
-  @media (max-width: 1300px) {
-    .poem-image {
-      position: static;
-      display: block;
-      width: 100%;
-      max-width: 500px;
-      margin: 2rem auto;
-    }
-  }
-
-  @media (max-width: 768px) {
-    body {
-      padding: 2rem 1rem 5rem;
-    }
-    .title {
-      font-size: clamp(1.8rem, 8vw, 2.5rem);
-    }
-    .poem {
-      padding: 0;
-      font-size: 1.1rem;
-    }
-  }
+  .poem :global(p) { margin: 0 0 1.2em; }
 </style>

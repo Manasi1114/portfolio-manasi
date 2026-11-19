@@ -1,20 +1,40 @@
 ---
-// MainLayout
-import LibraryLayout from "../layouts/LibraryLayout.astro";
-import MainLayout from "../layouts/MainLayout.astro";
-import BookCard from "../components/BookCard.astro";
+// Bookhouse (Figma: Page · Bookhouse).
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Title from "../components/Title.astro";
+import { BOOKS } from "../data/site.js";
+const [current] = BOOKS;
 ---
 
-<MainLayout></MainLayout>
-<LibraryLayout type="bookhouse" title="I read.">
-  <BookCard link="/books/book1.jpg" />
-  <BookCard link="/books/book2.jpg" />
-  <BookCard link="/books/book3.jpg" />
-  <BookCard link="/books/book4.jpg" />
-  <BookCard link="/books/book5.jpg" />
-  <BookCard link="/books/book6.jpg" />
-  <BookCard link="/books/book7.jpg" />
-  <BookCard link="/books/book8.jpg" />
-  <BookCard link="/books/book9.jpg" />
-  <BookCard link="/books/book10.jpg" />
-</LibraryLayout>
+<SiteLayout title="Bookhouse" description="Books on my shelf, and what stayed with me after the last page.">
+  <div class="row row-2-1">
+    <section class="tile t-navy pad-lg">
+      <p class="label">Off the clock · Bookhouse</p>
+      <Title text="I read." />
+      <p class="lede">Books on my shelf, and what stayed with me after the last page.</p>
+    </section>
+    <section class="tile t-steel flush row row-1-1 keep-cols" style="display: grid; grid-template-columns: 150px 1fr;">
+      <figure class="media" style="border: 0; min-height: 200px;"><img src="/web/book1.jpg" alt={`Cover of ${current[0]}`} /></figure>
+      <div class="tile" style="border: 0; gap: 8px;">
+        <p class="label">Currently reading</p>
+        <p class="display d-xs" style="font-size: 26px;">{current[0]}</p>
+        <p class="muted small">{current[1]}</p>
+      </div>
+    </section>
+  </div>
+
+  <h2 class="label section-head">The shelf · {BOOKS.length} books</h2>
+  <div class="row row-5">
+    {BOOKS.map(([title, author], i) => (
+      <article class="tile t-white flush">
+        <figure class="media" style="border: 0; border-bottom: 1px solid var(--steel); aspect-ratio: 2 / 3; min-height: 0;">
+          <img src={`/web/book${i + 1}.jpg`} alt={`Cover of ${title}`} loading="lazy" />
+        </figure>
+        <div class="tile" style="border: 0; padding: 14px 16px 16px; gap: 6px;">
+          <p class="label muted">No. {String(i + 1).padStart(2, "0")}</p>
+          <p style="font-weight: 500; font-size: 16px; line-height: 1.3;">{title}<br /><span class="muted" style="font-weight: 400;">{author}</span></p>
+        </div>
+      </article>
+    ))}
+  </div>
+</SiteLayout>

@@ -1,98 +1,34 @@
+---
+// Sitemap (Figma: Page · Sitemap).
+import SiteLayout from "../layouts/SiteLayout.astro";
+import Title from "../components/Title.astro";
+import { CV_URL } from "../data/site.js";
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg" />
-    <title>Sitemap</title>
-  </head>
+const groups = [
+  ["Work", "t-white", [["Selected work", "/work"], ["Ponk Nagari of Surat", "/projects/project-1"], ["Janatotsav, Seondha", "/projects/project-2"]]],
+  ["Notes", "t-steel", [["Design Notes", "/design"], ["Design Styles", "/design/styles"], ["Source Catalogue", "/design-source-catalogue"]]],
+  ["Off the clock", "t-navy", [["Blog", "/blog"], ["Poetry", "/poetry"], ["Quotes", "/quotes"], ["Bookhouse", "/bookhouse"], ["Magazine", "/magazine"]]],
+  ["About", "t-ice", [["Home", "/"], ["About me", "/about"], ["Socials", "/socials"], ["Download CV", CV_URL]]],
+];
+---
 
-  <body>
-    <h1>Keep Track</h1>
-    <div class="content">
-      <ul>
-        <li><a href="/">Home</a></li>
-
-        <li>
-          Projects
-          <ul>
-            <li><a href="/projects/project-1">Project 1</a></li>
-            <li><a href="/projects/project-2">Project 2</a></li>
+<SiteLayout title="Sitemap" description="Every page on the site, grouped the way the navigation is.">
+  <section class="tile t-navy pad-lg">
+    <p class="label">Sitemap</p>
+    <Title text="Keep track." />
+    <p class="lede">Every page on the site, grouped the way the navigation is.</p>
+  </section>
+  <div class="row row-4">
+    {groups.map(([name, tone, links]) => {
+      const dark = tone === "t-navy" || tone === "t-steel";
+      return (
+        <nav class={`tile ${tone}`} aria-label={name}>
+          <div class="top"><h2 class="display d-xs" style="font-size: 28px;">{name}</h2><span class={`num ${dark ? "lime" : ""}`} style="font-size: 22px;">{String(links.length).padStart(2, "0")}</span></div>
+          <ul class="list">
+            {links.map(([l, href]) => <li><a href={href}><span>{l}</span><span class={dark ? "lime" : ""} aria-hidden="true">→</span></a></li>)}
           </ul>
-        </li>
-
-        <li>
-          Blog
-          <ul>
-            <li><a href="/posts/post-1">Post 1</a></li>
-            <li><a href="/posts/post-2">Post 2</a></li>
-          </ul>
-        </li>
-
-        <li>
-          Poetry
-          <ul>
-            <li><a href="/poetry/poetry-1">Poetry 1</a></li>
-            <li><a href="/poetry/poetry-2">Poetry 2</a></li>
-          </ul>
-        </li>
-
-        <li>
-          Quotes
-          <ul>
-            <li><a href="/quotes/quote-1">Quote 1</a></li>
-            <li><a href="/quotes/quote-2">Quote 2</a></li>
-          </ul>
-        </li>
-
-        <li><a href="/bookhouse">Bookhouse</a></li>
-        <li><a href="/magazine">Magazine</a></li>
-        <li>
-          <a href="/design">Design Notes</a>
-          <ul>
-            <li><a href="/design/styles">Design Styles</a></li>
-            <li><a href="/design-source-catalogue">Source Catalogue</a></li>
-          </ul>
-        </li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/socials">Socials</a></li>
-      </ul>
-    </div>
-  </body>
-</html>
-
-<style>
-  body {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    padding: 20px;
-    background-color: rgb(208, 242, 246);
-  }
-  h1 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-  }
-  .content {
-    max-width: 800px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-  }
-  ul {
-    list-style:circle;
-    padding-left: 20px;
-  }
-  a {
-    text-decoration: none;
-    color: #333;
-  }
-  a:hover {
-    color: white;
-    background-color: red;
-  }
-  .child {
-    padding-left: 20px;
-  }
-</style>
+        </nav>
+      );
+    })}
+  </div>
+</SiteLayout>

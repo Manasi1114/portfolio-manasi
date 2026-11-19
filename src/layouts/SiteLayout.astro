@@ -1,0 +1,76 @@
+---
+// Shared layout for the redesigned site (Figma: Homepage Final).
+// Design Styles and the Source Catalogue keep their own layouts.
+import "../styles/site.css";
+import { NAV, MORE, CV_URL } from "../data/site.js";
+
+const {
+  title,
+  description = "Manasi Shrivastava — digital experience designer. Research-led websites, digital products and books.",
+  section = "",
+} = Astro.props;
+const fullTitle = title ? `${title} · Manasi Shrivastava` : "Manasi Shrivastava · Digital experience designer";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/svg/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Dosis:wght@400;500&family=Edu+QLD+Beginner&display=swap"
+    />
+    <title>{fullTitle}</title>
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="site">
+      <header class="nav" id="nav">
+        <a class="nav-name" href="/">Manasi Shrivastava</a>
+        <div class="nav-right">
+          <ul class="nav-links">
+            {NAV.map((l) => (
+              <li><a href={l.href} aria-current={section === l.section ? "page" : undefined}>{l.label}</a></li>
+            ))}
+          </ul>
+          <a class="btn btn-lime" href={CV_URL}>Download CV</a>
+        </div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+        <nav class="nav-menu" id="nav-menu" aria-label="Main">
+          <ul class="list">
+            {[...NAV, ...MORE].map((l) => (
+              <li><a href={l.href}><span>{l.label}</span><span aria-hidden="true">→</span></a></li>
+            ))}
+          </ul>
+          <a class="btn btn-lime" href={CV_URL}>Download CV</a>
+        </nav>
+      </header>
+
+      <main id="main" class="col">
+        <slot />
+      </main>
+
+      <footer class="footer">© 2026 Manasi Shrivastava</footer>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var nav = document.getElementById("nav");
+        var btn = nav.querySelector(".nav-toggle");
+        btn.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          btn.setAttribute("aria-expanded", open ? "true" : "false");
+          btn.textContent = open ? "Close" : "Menu";
+        });
+      })();
+    </script>
+  </body>
+</html>

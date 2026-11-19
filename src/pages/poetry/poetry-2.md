@@ -3,6 +3,7 @@ title: "The Highwayman"
 image: "/images/highway2.jpg"
 date: "2025-08-10"
 poet: "Alfred Noyes"
+order: 3
 description: "Romantic ballad"
 layout: ../../layouts/PoetryLayout.astro
 ---

@@ -1,9 +1,12 @@
 ---
 title: "*drumroll* The exhibit"
-description: "A short summary of what the blog is about."
+description: "You would not believe that web design can be such a fun experience. All of us are separate divs plunged together to make a complete picture."
+category: "Class diary"
+caption: "Our class at the web design exhibit"
+order: 1
 date: "13th Aug'25"
 image:
-  url: "/images/ethno4.jpg"
+  url: "/web/ethno4.jpg"
 layout: ../../layouts/BlogLayout.astro
 ---
 

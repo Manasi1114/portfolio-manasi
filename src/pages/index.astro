@@ -1,185 +1,126 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+// Homepage (Figma: Homepage Final).
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { CV_URL, EMAIL, INSTAGRAM, PROJECTS } from "../data/site.js";
+const [p1, p2, p3] = PROJECTS;
 ---
 
-<MainLayout title="Portfolio Manasi">
-  <div class="heading">
-    <h1>Welcome to <br />Portfolio Manasi</h1>
+<SiteLayout section="">
+  <!-- Band 1: hero | featured + right now -->
+  <div class="row row-2-1">
+    <section class="tile t-navy pad-lg" style="gap: 24px;">
+      <p class="label">Hello, I’m Manasi</p>
+      <h1 class="display d-xl"><span class="red">Sharply</span> researched,<br />value-based clean design<span class="lime">.</span></h1>
+      <p class="lede">
+        I design websites, digital products and books, starting from field research. Freelancing now · M.Des.
+        Communication Design, Dhirubhai Ambani University, 2026.
+      </p>
+      <div class="btns push">
+        <a class="btn" href="/work">See selected work →</a>
+        <a class="btn btn-lime" href={CV_URL}>Download CV</a>
+        <a class="btn btn-ghost" href={`mailto:${EMAIL}?subject=${encodeURIComponent("Project enquiry")}`}>Available for work</a>
+      </div>
+    </section>
+    <div class="col">
+      <div class="media fill" style="flex: 1; min-height: 240px;">
+        <span class="caption-strip" style="background: var(--white); color: var(--navy); border: 1px solid var(--steel); font-size: 16px; padding: 10px 14px;">
+          Featured · {p1.title}
+        </span>
+      </div>
+      <section class="tile t-steel">
+        <div class="top"><p class="label">Right now</p><span class="dot" aria-hidden="true"></span></div>
+        <p style="font-size: 26px; line-height: 1.25;">Freelancing · Ahmedabad, Bangalore</p>
+        <p class="small" id="ist-time">Based in India (IST).</p>
+      </section>
+    </div>
   </div>
-  <div class="introduction">
-    <p>
-      Life is good when you can ask a lot of questions. This site is filled with
-      my thoughts, work and curations. Take a look around...
-    </p>
+
+  <!-- Band 2: stats + projects | off the clock + collections -->
+  <div class="row row-2-1">
+    <div class="col">
+      <div class="row row-4">
+        <div class="tile t-white"><p class="num">03</p><p class="muted small">Projects</p></div>
+        <div class="tile t-white"><p class="num">02</p><p class="muted small">Collections</p></div>
+        <div class="tile t-white"><p class="num">IST</p><p class="muted small">Ahmedabad · IST</p></div>
+        <div class="tile t-ice"><p class="num" style="font-size: clamp(26px, 2.4vw, 40px);">Approach</p><p class="muted small">Research led</p></div>
+      </div>
+
+      <article class="media" style="min-height: 460px; flex: 1;">
+        <span class="tag tag-lime" style="position: absolute; top: 20px; left: 20px;">{p1.n} / 03</span>
+        <div class="tile t-white" style="position: absolute; left: 20px; bottom: 20px; width: min(480px, calc(100% - 40px)); gap: 8px;">
+          <p class="label muted">{p1.meta}</p>
+          <h2 class="display d-sm">{p1.title}</h2>
+          <p class="link">Case study coming soon</p>
+        </div>
+      </article>
+
+      <div class="row row-1-1">
+        {[p2, p3].map((p, i) => (
+          <article class="tile t-ice" style="min-height: 260px;">
+            <div class="top"><p class="label">{p.meta}</p><span class={i === 0 ? "tag tag-lime" : "tag"}>{p.n}</span></div>
+            <h2 class="display d-sm push">{p.title}</h2>
+            <p class="link">Case study coming soon</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="col">
+      <section class="tile t-navy fill">
+        <p class="label">Off the clock</p>
+        <h2 class="display d-sm" style="font-size: 34px;">Who am I when I’m off the clock?</h2>
+        <div class="tags push">
+          <a class="tag tag-lime" href="/poetry">Poetry</a>
+          <a class="tag" href="/quotes">Quotes</a>
+          <a class="tag" href="/bookhouse">Bookhouse</a>
+          <a class="tag" href="/blog">Blog</a>
+          <a class="tag" href="/magazine">Magazine</a>
+        </div>
+      </section>
+      <section class="tile t-steel fill">
+        <div class="top"><p class="label">My collection</p><span class="tag">01</span></div>
+        <h2 class="display d-sm">Design Notes</h2>
+        <p class="small">Process, references and sketches.</p>
+        <a class="btn push" href="/design">Explore →</a>
+      </section>
+      <section class="tile t-white fill">
+        <div class="top"><p class="label">My collection</p><span class="tag tag-lime">02</span></div>
+        <h2 class="display d-sm">Source Catalogue</h2>
+        <p class="small">A collected index of design styles.</p>
+        <a class="btn btn-red push" href="/design-source-catalogue">Explore →</a>
+      </section>
+    </div>
   </div>
-  <div class="manasi">
-    <a href="/about">Meet your archivist Manasi.</a>
+
+  <!-- Band 3: contact | socials -->
+  <div class="row row-2-1">
+    <section class="tile t-navy pad-lg">
+      <p class="label">Come, say hello to me!</p>
+      <a class="email push" href={`mailto:${EMAIL}`}>{EMAIL} →</a>
+    </section>
+    <nav class="tile t-white" aria-label="Elsewhere" style="padding-top: 8px; padding-bottom: 8px;">
+      <ul class="list">
+        <li><a href={INSTAGRAM.url}><span>Instagram</span><span aria-hidden="true">→</span></a></li>
+        <li><a href={`mailto:${EMAIL}`}><span>Email</span><span aria-hidden="true">→</span></a></li>
+        <li><a href="/socials" style="border-bottom: 0;"><span>All links</span><span aria-hidden="true">→</span></a></li>
+      </ul>
+    </nav>
   </div>
 
-  <img src="/images/plant2.png" class="rotated-image" />
-  <img src="/images/plant1.png" class="bottom-image" />
-</MainLayout>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden;
-  }
-
-  .rotated-image {
-    position: fixed;
-    margin-top: -380px;
-    margin-left: 790px;
-    padding: 0;
-    width: 390px;
-    height: auto;
-    transform: rotate(270deg);
-  }
-
-  .bottom-image {
-    position: fixed;
-    bottom: 0;
-    left: 220px;
-    width: 300px;
-    height: auto;
-  }
-
-  .heading {
-    margin-left: 20px;
-    font-size: 40px;
-    font-family: lapture;
-    color: #112a4d;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-  }
-
-  .introduction {
-    font-family: "Courier Prime", monospace;
-    font-weight: 700;
-    font-style: normal;
-    background-color: #f0ebe6;
-    padding: 14px;
-    border-radius: 5px;
-    max-width: 350px;
-    margin: 20px auto 50px;
-    font-size: 18px;
-    text-align: left;
-  }
-
-  .introduction p {
-    font-weight: 400;
-    color: #0e681a;
-    margin: 0;
-  }
-
-  .manasi {
-    text-align: right;
-    font-family: "Josefin Sans", sans-serif;
-    font-size: 25px;
-    position: relative;
-    top: 20px;
-  }
-
-  .manasi a {
-    text-decoration: overline;
-    color: #86a69d;
-    font-weight: bold;
-    font-family: "Josefin Sans", sans-serif;
-    transition: all 0.3s ease;
-  }
-
-  .manasi a:hover {
-    color: #d3e85c;
-    text-shadow: 2px 2px 5px rgba(255, 111, 97, 0.3);
-    transform: scale(1.05);
-  }
-
-  /* =========================
-     Responsive adjustments
-     ========================= */
-
-  /* Tablets (iPad) */
-  @media (max-width: 1024px) {
-    .heading {
-      font-size: 32px;
-      margin-left: 16px;
-    }
-
-    .rotated-image {
-      margin-left: 520px;
-      width: 320px;
-    }
-
-    .bottom-image {
-      left: 80px;
-      width: 260px;
-    }
-
-    .manasi {
-      font-size: 22px;
-    }
-  }
-
-  /* Phones */
-  @media (max-width: 768px) {
-    .heading {
-      font-size: 28px;
-      margin-left: 14px;
-      line-height: 1.2;
-    }
-
-    .introduction {
-      max-width: 90%;
-      font-size: 16px;
-      margin: 16px auto 32px;
-    }
-
-    .manasi {
-      text-align: center;
-      top: 0;
-      margin-bottom: 40px;
-      font-size: 20px;
-    }
-
-    .rotated-image {
-      position: absolute;
-      top: 20px;
-      right: -120px;
-      margin: 0;
-      width: 260px;
-      transform: rotate(270deg);
-      opacity: 0.6;
-    }
-
-    .bottom-image {
-      position: static; /* sits below the text instead of covering it */
-      display: block;
-      margin: 0 auto;
-      width: 200px;
-      opacity: 0.8;
-    }
-  }
-
-  /* Small phones */
-  @media (max-width: 480px) {
-    .heading {
-      font-size: 24px;
-    }
-
-    .manasi {
-      font-size: 18px;
-    }
-
-    .rotated-image {
-      width: 220px;
-      right: -140px;
-    }
-
-    .bottom-image {
-      width: 180px;
-    }
-  }
-</style>
+  <script is:inline>
+    // "It's 11:30 am for Manasi (IST) — she's probably deep in a layout."
+    (function () {
+      var el = document.getElementById("ist-time");
+      if (!el) return;
+      function update() {
+        var now = new Date();
+        var time = now.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata" });
+        var hour = Number(now.toLocaleString("en-GB", { hour: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }));
+        var doing = hour < 7 ? "probably asleep" : hour < 10 ? "probably sketching over chai" : hour < 19 ? "probably deep in a layout" : hour < 23 ? "probably reading" : "probably asleep";
+        el.textContent = "It’s " + time.toLowerCase() + " for Manasi (IST) — she’s " + doing + ".";
+      }
+      update();
+      setInterval(update, 30000);
+    })();
+  </script>
+</SiteLayout>
